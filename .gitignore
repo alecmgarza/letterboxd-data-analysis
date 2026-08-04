@@ -1,3 +1,4 @@
 # Ignore data files in git
 data/*.csv
+data/*.db
 venv/
