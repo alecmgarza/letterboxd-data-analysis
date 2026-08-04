@@ -3,3 +3,17 @@ import pandas as pd
 df = pd.read_csv('data/diary.csv')
 
 print(df.head(10))
+
+print(df.info())
+
+total_movies = len(df)
+print(f"Total Movies Logged: {total_movies}")
+
+max_rating = df['Rating'].max()
+print(f"Max Rating: {max_rating}")
+
+min_rating = df['Rating'].min()
+print(f"Min Rating: {min_rating}")
+
+avg_rating = "{:.2f}".format(df['Rating'].mean())
+print(f"Average Rating: {avg_rating}")
