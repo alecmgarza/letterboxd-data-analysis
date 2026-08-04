@@ -15,5 +15,8 @@ print(f"Max Rating: {max_rating}")
 min_rating = df['Rating'].min()
 print(f"Min Rating: {min_rating}")
 
-avg_rating = "{:.2f}".format(df['Rating'].mean())
+avg_rating = df['Rating'].mean().round(2)
 print(f"Average Rating: {avg_rating}")
+
+df['Decade'] = df['Year'] // 10 * 10
+print(df.groupby('Decade')['Rating'].mean().round(2))
