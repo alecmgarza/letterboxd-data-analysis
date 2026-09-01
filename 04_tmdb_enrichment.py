@@ -54,4 +54,5 @@ for row in df.itertuples():
 
 df_enriched = pd.DataFrame(enriched_data)
 df_enriched.to_sql('movies_metadata', conn, if_exists='replace', index=False)
+
 conn.close()
