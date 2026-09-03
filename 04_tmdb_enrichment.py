@@ -45,8 +45,8 @@ for row in df.itertuples():
             'runtime': details_data.get('runtime'),
             'vote_average': details_data.get('vote_average'),
             'vote_count': details_data.get('vote_count'),
-            'genres': ', '.join([genre['name'] for genre in data.get('genres', [])]),
-            'overview': data.get('overview')
+            'genres': ', '.join([genre['name'] for genre in details_data.get('genres', [])]),
+            'overview': details_data.get('overview')
         })
         print(f"Enriched: {row.Name}")
 
