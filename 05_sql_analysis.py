@@ -99,7 +99,7 @@ query_5 = '''
 SELECT
     (m.year / 10) * 10 AS decade,
     COUNT(*) AS total_movies,
-    AVG((d.Rating) * 2.0) AS avg_my_rating,
+    AVG(d.Rating * 2.0) AS avg_my_rating,
     AVG(m.vote_average) AS avg_tmdb_rating,
     AVG((d.Rating * 2.0) - m.vote_average) AS avg_diff
 FROM movies_metadata AS m
