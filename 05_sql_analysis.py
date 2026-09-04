@@ -55,4 +55,42 @@ ORDER BY rating_diff DESC
 df_underrated = pd.read_sql(query_3, conn)
 print(df_underrated.head(), '\n')
 
+query_4 = '''
+SELECT
+    m.genres AS genres,
+    d.Rating AS my_rating,
+    m.vote_average AS tmdb_rating,
+    ROUND((d.Rating * 2.0) - m.vote_average, 2) AS rating_diff
+FROM movies_metadata AS m
+INNER JOIN diary AS d
+ON m.name = d.Name
+AND m.year = d.Year
+WHERE d.Rating IS NOT NULL 
+AND vote_count >= 100
+AND m.genres != ''
+'''
+
+df_genres = pd.read_sql(query_4, conn)
+df_genres['genres'] = df_genres['genres'].str.split(', ')
+
+df_exploded = df_genres.explode('genres')
+
+genre_summary = df_exploded.groupby('genres').agg(
+    total_movies=('my_rating', 'count'),
+    avg_my_rating=('my_rating', 'mean'),
+    avg_tmdb_rating=('tmdb_rating', 'mean'),
+    avg_diff=('rating_diff', 'mean')
+).reset_index()
+
+filtered_summary = genre_summary[genre_summary['total_movies'] >= 10]
+
+sorted_summary = filtered_summary.sort_values(by='avg_my_rating', ascending=False)
+sorted_summary = sorted_summary.round({
+    'avg_my_rating': 2,
+    'avg_tmdb_rating': 2,
+    'avg_diff': 2
+})
+
+print(sorted_summary.to_string(index=False))
+
 conn.close()
