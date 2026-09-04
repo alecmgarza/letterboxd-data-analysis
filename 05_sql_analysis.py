@@ -17,7 +17,8 @@ AND m.year = d.Year;
 '''
 
 df_runtime = pd.read_sql(query_1, conn)
-print(df_runtime.head(), '\n')
+print('--- OVERALL RUNTIME METRICS ---\n')
+print(df_runtime.head().to_string(index=False), '\n')
 
 query_2 = '''
 SELECT
@@ -35,7 +36,8 @@ ORDER BY rating_diff ASC
 '''
 
 df_overrated = pd.read_sql(query_2, conn)
-print(df_overrated.head(), '\n')
+print('--- TOP 5 OVERRATED by TMDB ---\n')
+print(df_overrated.head().to_string(index=False), '\n')
 
 query_3 = '''
 SELECT
@@ -53,7 +55,8 @@ ORDER BY rating_diff DESC
 '''
 
 df_underrated = pd.read_sql(query_3, conn)
-print(df_underrated.head(), '\n')
+print('--- TOP 5 UNDERRATED by TMDB ---\n')
+print(df_underrated.head().to_string(index=False), '\n')
 
 query_4 = '''
 SELECT
@@ -91,6 +94,7 @@ sorted_summary = sorted_summary.round({
     'avg_diff': 2
 })
 
-print(sorted_summary.to_string(index=False))
+print('--- GENRE BREAKDOWN (min. 10 movies) ---\n')
+print(sorted_summary.to_string(index=False), '\n')
 
 conn.close()
