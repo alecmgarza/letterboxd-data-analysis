@@ -24,7 +24,7 @@ query_2 = '''
 SELECT
     m.name AS name,
     m.year AS year,
-    d.Rating AS my_rating,
+    (d.Rating * 2.0) AS my_rating,
     m.vote_average AS tmdb_rating,
     ROUND((d.Rating * 2.0) - m.vote_average, 2) AS rating_diff
 FROM movies_metadata AS m
@@ -44,7 +44,7 @@ query_3 = '''
 SELECT
     m.name AS name,
     m.year AS year,
-    d.Rating AS my_rating,
+    (d.Rating * 2.0) AS my_rating,
     m.vote_average AS tmdb_rating,
     ROUND((d.Rating * 2.0) - m.vote_average, 2) AS rating_diff
 FROM movies_metadata AS m
@@ -63,7 +63,7 @@ print(df_underrated.head(5).to_string(index=False), '\n')
 query_4 = '''
 SELECT
     m.genres AS genres,
-    d.Rating AS my_rating,
+    (d.Rating * 2.0) AS my_rating,
     m.vote_average AS tmdb_rating,
     d.Rating * 2.0 - m.vote_average AS rating_diff
 FROM movies_metadata AS m
@@ -99,7 +99,7 @@ query_5 = '''
 SELECT
     (m.year / 10) * 10 AS decade,
     COUNT(*) AS total_movies,
-    AVG(d.Rating) AS avg_my_rating,
+    AVG((d.Rating) * 2.0) AS avg_my_rating,
     AVG(m.vote_average) AS avg_tmdb_rating,
     AVG((d.Rating * 2.0) - m.vote_average) AS avg_diff
 FROM movies_metadata AS m
